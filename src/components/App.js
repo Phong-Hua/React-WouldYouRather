@@ -17,48 +17,8 @@ class App extends Component {
     this.props.dispatch(handleInitialData());
   }
 
-  //   render() {
-  //     return (
-
-  //       <Router>
-  //         <Fragment>
-  //           <LoadingBar />
-  //           <div className='container'>
-  //             {this.props.loading === true
-  //               ? <Route path='/' exact component={Login}/>
-  //               : <Fragment>
-  //                   <Nav />
-
-
-  //                   {/* <Route path='/unanswer' render={( => {
-  //                     console.log('loading: ', props.loading);
-  //                     if (props.loading)
-  //                       return <Login />
-  //                     else
-  //                       return <QuestionList unanswer={true}/>
-  //                   }}
-
-  //                     // (props.loading) ?  
-  //                     //   <Login />: 
-  //                     // <QuestionList unanswer={true}/>} 
-  //                   /> */}
-
-  //                   <Route path='/answer' render={() => <QuestionList unanswer={false}/>}/>
-  //                   <Route path='/add' component={NewQuestion} />
-  //                   <Route path='/leaderboard' component={Leaderboard} />
-  //                   <Route path='/questions/:id' component={QuestionDetail}/>
-  //               </Fragment>
-  //             }
-  //           </div>
-  //         </Fragment>
-  //       </Router>
-  //     )
-  //   }
-  // }
-
   render() {
     return (
-
       <Router>
         <Fragment>
           <LoadingBar />
@@ -85,7 +45,7 @@ class App extends Component {
   }
 }
 
-function mapStatetoProps({ authedUser, users, questions }) {
+function mapStatetoProps({ authedUser}) {
   return {
     loading: authedUser === null,
   }
