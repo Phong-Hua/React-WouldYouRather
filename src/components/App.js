@@ -71,7 +71,7 @@ class App extends Component {
                 :
                 <Fragment>
                   <Nav />
-
+                  <Route path='/unanswer' render={() => <QuestionList unanswer={true} />} />
                   <Route path='/answer' render={() => <QuestionList unanswer={false} />} />
                   <Route path='/add' component={NewQuestion} />
                   <Route path='/leaderboard' component={Leaderboard} />
