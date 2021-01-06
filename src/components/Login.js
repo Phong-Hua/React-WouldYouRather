@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {handleLogin} from '../actions/shared';
+import {setAuthedUser} from '../actions/authedUser';
+import {withRouter} from 'react-router-dom';
 
 class Login extends Component {
 
@@ -11,12 +12,19 @@ class Login extends Component {
 
     handleLogin(e) {
         e.preventDefault();
+        const {dispatch, previousPage, history} = this.props;
         const id = this.select.value;
-        this.props.dispatch(handleLogin(id));
+        dispatch(setAuthedUser(id));
+
+        // if no previous page
+        if (!previousPage)
+            history.push('/unanswer');
+        // bring to home page
+        // this.props.history.push('/unanswer');
     }
 
     render() {
-        const {ids} = this.props;
+        const {authedUser, ids} = this.props;
         return (
             <div className='center'>
                 <form onSubmit={this.handleLogin}>
@@ -32,10 +40,16 @@ class Login extends Component {
     }
 }
 
-function mapStatetoProps({users}) {
+function mapStatetoProps({authedUser, users}, {previousPage}) {
+    console.group('At Login');
+    console.log('previousPage: ', previousPage);
+    console.log('authed User: ', authedUser);
+    console.groupEnd();
     return {
+        authedUser,
         ids : Object.keys(users).sort((a,b) => a-b),
+        previousPage
     }
 }
 
-export default connect(mapStatetoProps)(Login);
+export default withRouter(connect(mapStatetoProps)(Login));

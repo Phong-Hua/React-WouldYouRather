@@ -1,22 +1,36 @@
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default function Nav() {
+function Nav(props) {
+    const {authedUser} = props;
     return (
-        <nav className='nav'>
-            <ul>
-                <li>
-                    <NavLink to='/unanswer' activeClassName='active'>Unanswered poll</NavLink> 
-                </li>
-                <li>
-                    <NavLink to='/answer' activeClassName='active'>Answered poll</NavLink>
-                </li>
-                <li>
-                    <NavLink to='/add' activeClassName='active'>New poll</NavLink>
-                </li>
-                <li>
-                    <NavLink to='/leaderboard' activeClassName='active'>Leaderboard</NavLink>
-                </li>
-            </ul>
-        </nav>
+        <div className='center'>
+            Hi, {authedUser}
+            <nav className='nav'>
+                <ul>
+                    <li>
+                        <NavLink to='/unanswer' activeClassName='active'>Unanswered poll</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/answer' activeClassName='active'>Answered poll</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/add' activeClassName='active'>New poll</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/leaderboard' activeClassName='active'>Leaderboard</NavLink>
+                    </li>
+                    
+                </ul>
+            </nav>
+        </div>
     )
 }
+
+function mapStatetoProps({ authedUser }) {
+    return {
+        authedUser
+    }
+}
+
+export default connect(mapStatetoProps)(Nav);

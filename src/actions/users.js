@@ -13,17 +13,3 @@ export function receiveUsers(users) {
         users
     }
 }
-
-/**
- * Asynchronous action creator
- */
-export function handleReceiveUsers() {
-    return (dispatch) => {
-        dispatch(showLoading());
-        return getUsers()
-            .then((users) => {
-                dispatch(receiveUsers(users))
-                dispatch(hideLoading());
-            })
-    }
-}
