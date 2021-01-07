@@ -1,30 +1,40 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {setAuthedUser} from '../actions/authedUser';
-import {withRouter} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 class Login extends Component {
 
     constructor(props) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
+        this.state = {
+            toNextPage: false,
+        }
     }
 
     handleLogin(e) {
         e.preventDefault();
-        const {dispatch, previousPage, history} = this.props;
+        const {dispatch} = this.props;
         const id = this.select.value;
-        dispatch(setAuthedUser(id));
-
-        // if no previous page
-        if (!previousPage)
-            history.push('/unanswer');
-        // bring to home page
-        // this.props.history.push('/unanswer');
+        if (id)
+        {
+            dispatch(setAuthedUser(id));
+            this.setState(() => ({
+                toNextPage: true,
+            }))
+        }
     }
 
     render() {
-        const {authedUser, ids} = this.props;
+
+        const {ids, nextPage} = this.props;
+
+        if(this.state.toNextPage)
+        {
+            return <Redirect to={nextPage} />
+        }    
+        
         return (
             <div className='center'>
                 <form onSubmit={this.handleLogin}>
@@ -40,16 +50,13 @@ class Login extends Component {
     }
 }
 
-function mapStatetoProps({authedUser, users}, {previousPage}) {
-    console.group('At Login');
-    console.log('previousPage: ', previousPage);
-    console.log('authed User: ', authedUser);
-    console.groupEnd();
+function mapStatetoProps({authedUser, users}, props) {
+    const nextPage = (props.location.state) ? props.location.state.from : '/unanswer';
     return {
         authedUser,
         ids : Object.keys(users).sort((a,b) => a-b),
-        previousPage
+        nextPage,
     }
 }
 
-export default withRouter(connect(mapStatetoProps)(Login));
+export default connect(mapStatetoProps)(Login);

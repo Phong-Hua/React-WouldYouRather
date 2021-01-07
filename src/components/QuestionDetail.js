@@ -99,20 +99,12 @@ class QuestionDetail extends Component {
 
 
 
-function mapStatetoProps({ authedUser, questions }, props) {
-
-    const { id } = props.match.params;
+function mapStatetoProps({ authedUser, questions }, {id}) {
     const question = questions[id];
     return {
         id,
         question,
         authedUser,
-        // optionOneText: question.optionOne.text,
-        // optionTwoText: question.optionTwo.text,
-        // optionOneCount: question.optionOne.votes.length,
-        // optionTwoCount: question.optionTwo.votes.length,
-        // optionOneVoted: question.optionOne.votes.includes(authedUser),
-        // optionTwoVoted: question.optionTwo.votes.includes(authedUser),
     }
 }
 

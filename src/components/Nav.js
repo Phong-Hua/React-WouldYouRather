@@ -20,7 +20,9 @@ function Nav(props) {
                     <li>
                         <NavLink to='/leaderboard' activeClassName='active'>Leaderboard</NavLink>
                     </li>
-                    
+                    <li>
+                        <NavLink to='/logout' activeClassName='active'>Logout</NavLink>
+                    </li>
                 </ul>
             </nav>
         </div>
