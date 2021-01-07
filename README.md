@@ -1,10 +1,75 @@
 # Would You Rather Project
 
-This is the starter code for the final assessment project for Udacity's React & Redux course.
+This project is completed as an requirement to pass the final assessment for Udacity's React & Redux course. It is a web app that lets a user play the “Would You Rather?” game. The game goes like this: A user is asked a question in the form: “Would you rather [option A] or [option B] ?”. Answering "neither" or "both" is against the rules. 
 
-The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` _DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
+The `_DATA.js` file represents a fake database and methods that let you access the data. 
 
-Using the provided starter code, you'll build a React/Redux front end for the application. We recommend using the [Create React App](https://github.com/facebook/create-react-app) to bootstrap the project.
+## Features
+
+* First, users needs to login, using one of the user profiles available.
+* After logged in, users are brought to home page with a number of option available.
+  * Unanswered poll: This includes all question has not been answered by the logged in user yet. By clicking on one of these question, users are prompted to select [option A] or [option B].
+  * Answered poll: This page has questions that were answered by the logged in user.
+  * New poll: Users are provided a form to make their own poll. Upon submitting a question, the user is carried to Unanswered poll.
+  * Leaderboard: This provides information about all users (their name, avatar, number of questions they asked as well as number of answered questions).
+  * Logout: User logout of the app and is brought to login page.
+* All options are also available by their URL:
+  * Login: '/'
+  * Unanswered poll: '/unanswer'
+  * Specific question: '/questions/:id'
+  * Answered poll: '/answer'
+  * New poll: '/add'
+  * Leaderboard: '/leaderboard'
+  * Logout: '/logout'
+
+## TL;DR
+
+To run the project:
+
+* install all project dependencies with `npm install`
+* start the development server with `npm start`
+
+## What You're Getting
+```bash
+├── CONTRIBUTING.md
+├── README.md - This file.
+├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with your app.
+├── package.json # npm package manager file. It's unlikely that you'll need to modify this.
+├── public
+│   ├── favicon.ico # React Icon, You may change if you wish.
+│   └── index.html # DO NOT MODIFY
+└── src 
+    ├── actions 
+    │    ├── authedUser.js 
+    │    ├── question.js 
+    │    ├── shared.js 
+    │    └── users.js 
+    ├── components 
+    │   ├── App.js 
+    │   ├── Leaderboard.js 
+    │   ├── Login.js 
+    │   ├── Logout.js 
+    │   ├── Nav.js
+    │   ├── NewQuestion.js
+    │   ├── Question.js
+    │   ├── QuestionDetail.js
+    │   ├── QuestionList.js
+    │   ├── Test.js      
+    │   └── User.js 
+    ├── middleware
+    │   ├── index.js 
+    │   └── logger.js 
+    ├── reducers
+    │    ├── authedUser.js 
+    │    ├── index.js 
+    │    ├── question.js 
+    │    └── users.js 
+    ├── utils
+    │    ├── _DATA.js    
+    ├── App.css # Styles for your app. Feel free to customize this as you desire.
+    ├── index.css # Global styles. You probably won't need to change anything here.
+    └── index.js # You should not need to modify this file. It is used for DOM rendering only.
+```
 
 ## Data
 

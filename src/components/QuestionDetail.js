@@ -28,11 +28,16 @@ class QuestionDetail extends Component {
     }
 
     extractQuestionDetails = (question, authedUser) => {
+
+        const optionOneCount = question.optionOne.votes.length;
+        const optionTwoCount = question.optionTwo.votes.length;
+        const optionOnePercentage = (optionOneCount * 100 / (optionOneCount + optionTwoCount)).toFixed(0);
+        const optionTwoPercentage = 100 - optionOnePercentage;
         return {
             optionOneText: question.optionOne.text,
             optionTwoText: question.optionTwo.text,
-            optionOneCount: question.optionOne.votes.length,
-            optionTwoCount: question.optionTwo.votes.length,
+            optionOnePercentage,
+            optionTwoPercentage,
             optionOneVoted: question.optionOne.votes.includes(authedUser),
             optionTwoVoted: question.optionTwo.votes.includes(authedUser),
         }
@@ -40,17 +45,20 @@ class QuestionDetail extends Component {
 
     render() {
 
-        const {id, authedUser, question} = this.props;
+        const {authedUser, question, authorAvatar, authorName} = this.props;
         if (!question)
             return (<div>
                 The Question not found
             </div>)
         
-        const { optionOneText, optionTwoText, optionOneCount, optionTwoCount, optionOneVoted, optionTwoVoted } = this.extractQuestionDetails(question, authedUser);
+        const { optionOneText, optionTwoText, optionOnePercentage, optionTwoPercentage, optionOneVoted, optionTwoVoted } = this.extractQuestionDetails(question, authedUser);
         const alreadyAnswer = optionOneVoted || optionTwoVoted;
         return (
 
             <div className='info'>
+                <img src={authorAvatar} alt={`Avatar of ${authorName}`}
+                    className='avatar' 
+                />
                 <h3>Would you rather</h3>
                 <input
                     type='radio'
@@ -66,7 +74,7 @@ class QuestionDetail extends Component {
                 </label> 
                 <br />
                 <label>
-                    {optionOneCount} vote(s)
+                    {optionOnePercentage}% vote(s)
                 </label> 
                 <br />
                 <input
@@ -83,7 +91,7 @@ class QuestionDetail extends Component {
                 </label> 
                 <br />
                 <label>
-                    {optionTwoCount} vote(s)
+                    {optionTwoPercentage}% vote(s)
                 </label> 
                 <br />
                 <button
@@ -99,12 +107,18 @@ class QuestionDetail extends Component {
 
 
 
-function mapStatetoProps({ authedUser, questions }, {id}) {
+function mapStatetoProps({ authedUser, questions, users }, {id}) {
     const question = questions[id];
+
+    const user = users[question.author];
+    const authorAvatar = user.avatarURL;
+    const authorName = user.name;
     return {
         id,
         question,
         authedUser,
+        authorAvatar,
+        authorName
     }
 }
 
